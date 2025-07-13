@@ -1,0 +1,11 @@
+user_id,username,email,registration_date,last_login,is_active,country,age
+1001,john_doe,john.doe@example.com,2022-01-15 10:30:00,2023-07-10 09:00:00,TRUE,USA,30
+1002,jane_smith,jane.smith@example.com,2022-03-20 14:00:00,2023-07-12 11:45:00,TRUE,Canada,24
+1003,peter_jones,peter.jones@example.com,2022-05-01 08:15:00,2023-07-05 16:20:00,TRUE,UK,45
+1004,alice_wonder,alice.wonder@example.com,2022-07-10 11:00:00,2023-06-28 10:00:00,FALSE,Australia,28
+1005,bob_builder,bob.builder@example.com,2022-09-01 09:45:00,2023-07-11 13:10:00,TRUE,Germany,52
+1006,charlie_chaplin,charlie.c@example.com,2022-11-12 16:00:00,2023-07-09 08:30:00,TRUE,France,39
+1007,diana_prince,diana.p@example.com,2023-01-01 07:00:00,2023-07-12 10:15:00,TRUE,USA,33
+1008,eve_adams,eve.a@example.com,2023-02-14 12:00:00,2023-07-08 14:00:00,FALSE,Japan,22
+1009,frank_sinatra,frank.s@example.com,2023-03-25 10:00:00,2023-07-11 17:00:00,TRUE,Italy,60
+1010,grace_kelly,grace.k@example.com,2023-04-30 09:00:00,2023-07-10 11:00:00,TRUE,Monaco,29
