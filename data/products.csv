@@ -1,0 +1,21 @@
+product_id,product_name,category,brand,price,cost,stock_quantity,weight_kg,dimensions_cm,color,material,description,supplier_id,sku,barcode,created_date,last_updated
+1,iPhone 14 Pro Max,Electronics,Apple,1199.99,899.99,45,0.24,160x78x7.85,Space Black,Aluminum,Latest iPhone with advanced camera system,101,IPH14PM-SB,123456789012,2023-09-15,2024-07-10
+2,Samsung Galaxy S24 Ultra,Electronics,Samsung,1299.99,949.99,32,0.23,162x79x8.6,Titanium Gray,Titanium,Premium Android smartphone with S Pen,102,SGS24U-TG,123456789013,2023-10-20,2024-07-11
+3,MacBook Air M2,Electronics,Apple,1199.99,849.99,28,1.24,30x21x1.1,Midnight,Aluminum,Lightweight laptop with M2 chip,101,MBA-M2-MD,123456789014,2023-07-15,2024-07-12
+4,Dell XPS 13,Electronics,Dell,999.99,749.99,22,1.2,30x20x1.5,Platinum Silver,Carbon Fiber,Ultra-portable business laptop,103,DXP13-PS,123456789015,2023-08-10,2024-07-08
+5,Sony WH-1000XM5,Electronics,Sony,399.99,249.99,67,0.25,27x22x8,Black,Plastic,Noise-canceling wireless headphones,104,SWH1000XM5-BK,123456789016,2023-05-12,2024-07-09
+6,Nike Air Max 270,Footwear,Nike,150.00,75.00,120,0.8,32x22x12,White/Black,Mesh/Rubber,Comfortable running shoes with air cushioning,105,NAM270-WB,123456789017,2023-03-20,2024-07-06
+7,Adidas Ultraboost 22,Footwear,Adidas,180.00,90.00,95,0.85,33x23x13,Core Black,Knit/Rubber,Premium running shoes with boost technology,106,AUB22-CB,123456789018,2023-04-18,2024-07-07
+8,Levi's 501 Original Jeans,Clothing,Levi's,69.99,35.00,200,0.6,35x25x8,Dark Blue,Denim,Classic straight-leg jeans,107,L501-DB,123456789019,2023-01-10,2024-07-05
+9,North Face Venture 2 Jacket,Clothing,The North Face,99.99,55.00,78,0.4,40x30x15,Black,Nylon,Waterproof hiking jacket,108,NFV2-BK,123456789020,2023-02-14,2024-07-11
+10,Ray-Ban Aviator Classic,Accessories,Ray-Ban,154.99,85.00,156,0.03,14x5x15,Gold/Green,Metal/Glass,Iconic aviator sunglasses,109,RBA-GG,123456789021,2023-06-08,2024-07-13
+11,Fitbit Charge 5,Electronics,Fitbit,179.99,110.00,89,0.029,3.7x2.3x1.1,Black,Silicone,Advanced fitness tracker with GPS,110,FC5-BK,123456789022,2023-09-25,2024-07-10
+12,Kindle Paperwhite,Electronics,Amazon,139.99,85.00,145,0.205,17x12x0.8,Black,Plastic,Waterproof e-reader with backlight,111,KPW-BK,123456789023,2023-11-12,2024-07-12
+13,Instant Pot Duo 7-in-1,Home & Kitchen,Instant Pot,79.99,45.00,67,5.7,32x31x32,Stainless Steel,Stainless Steel,Multi-use pressure cooker,112,IPD7-SS,123456789024,2023-08-30,2024-07-08
+14,Dyson V15 Detect,Home & Kitchen,Dyson,749.99,450.00,23,3.1,125x25x23,Yellow/Purple,Plastic/Metal,Cordless vacuum with laser detection,113,DV15D-YP,123456789025,2023-10-05,2024-07-09
+15,YETI Rambler 20oz,Home & Kitchen,YETI,34.99,18.00,234,0.45,20x9x9,Navy,Stainless Steel,Insulated tumbler with MagSlider lid,114,YR20-NV,123456789026,2023-04-22,2024-07-06
+16,Patagonia Better Sweater,Clothing,Patagonia,99.00,55.00,67,0.5,38x28x10,Classic Navy,Polyester Fleece,Sustainable fleece jacket,115,PBS-CN,123456789027,2023-07-03,2024-07-07
+17,Hydro Flask Standard Mouth,Home & Kitchen,Hydro Flask,44.95,22.00,189,0.385,27x7x7,Pacific,Stainless Steel,Insulated water bottle 21oz,116,HFSM21-PC,123456789028,2023-05-28,2024-07-11
+18,Apple AirPods Pro 2,Electronics,Apple,249.99,149.99,78,0.056,3x2x2,White,Plastic,Wireless earbuds with active noise cancellation,101,AAP2-WH,123456789029,2023-12-01,2024-07-13
+19,PlayStation 5,Electronics,Sony,499.99,399.99,12,4.5,39x26x10,White,Plastic,Next-generation gaming console,104,PS5-WH,123456789030,2023-11-20,2024-07-10
+20,Nintendo Switch OLED,Electronics,Nintendo,349.99,249.99,45,0.42,24x10x1.4,White,Plastic,Portable gaming console with OLED screen,117,NSW-OLED-WH,123456789031,2023-08-15,2024-07-12

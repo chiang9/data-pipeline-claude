@@ -1,0 +1,21 @@
+user_id,first_name,last_name,email,phone,date_of_birth,address,city,state,zip_code,country,registration_date,last_login,account_status
+1,John,Doe,john.doe@email.com,+1-555-0101,1985-03-15,123 Main St,New York,NY,10001,USA,2023-01-15,2024-07-10,active
+2,Jane,Smith,jane.smith@email.com,+1-555-0102,1990-07-22,456 Oak Ave,Los Angeles,CA,90210,USA,2023-02-20,2024-07-12,active
+3,Robert,Johnson,robert.j@email.com,+1-555-0103,1988-11-08,789 Pine Rd,Chicago,IL,60601,USA,2023-03-10,2024-07-08,active
+4,Emily,Brown,emily.brown@email.com,+1-555-0104,1992-05-30,321 Elm St,Houston,TX,77001,USA,2023-04-05,2024-07-11,active
+5,Michael,Davis,michael.davis@email.com,+1-555-0105,1987-09-12,654 Maple Dr,Phoenix,AZ,85001,USA,2023-05-18,2024-06-25,active
+6,Sarah,Wilson,sarah.wilson@email.com,+1-555-0106,1995-01-25,987 Cedar Ln,Philadelphia,PA,19101,USA,2023-06-22,2024-07-09,active
+7,David,Miller,david.miller@email.com,+1-555-0107,1983-12-03,147 Birch St,San Antonio,TX,78201,USA,2023-07-14,2024-07-06,active
+8,Lisa,Garcia,lisa.garcia@email.com,+1-555-0108,1991-04-18,258 Walnut Ave,San Diego,CA,92101,USA,2023-08-09,2024-07-13,active
+9,Christopher,Rodriguez,chris.rodriguez@email.com,+1-555-0109,1989-08-27,369 Cherry St,Dallas,TX,75201,USA,2023-09-16,2024-07-05,active
+10,Amanda,Martinez,amanda.martinez@email.com,+1-555-0110,1994-02-14,741 Spruce Rd,San Jose,CA,95101,USA,2023-10-11,2024-07-12,active
+11,James,Anderson,james.anderson@email.com,+1-555-0111,1986-06-09,852 Poplar Dr,Austin,TX,73301,USA,2023-11-07,2024-06-30,suspended
+12,Jennifer,Taylor,jennifer.taylor@email.com,+1-555-0112,1993-10-31,963 Willow Ln,Jacksonville,FL,32099,USA,2023-12-12,2024-07-04,active
+13,William,Thomas,william.thomas@email.com,+1-555-0113,1984-07-16,159 Hickory St,Fort Worth,TX,76101,USA,2024-01-20,2024-07-07,active
+14,Ashley,Jackson,ashley.jackson@email.com,+1-555-0114,1996-03-08,357 Basswood Ave,Columbus,OH,43085,USA,2024-02-25,2024-07-11,active
+15,Matthew,White,matthew.white@email.com,+1-555-0115,1982-11-21,468 Redwood Rd,Charlotte,NC,28201,USA,2024-03-18,2024-07-02,active
+16,Jessica,Harris,jessica.harris@email.com,+1-555-0116,1997-09-05,579 Ash Dr,San Francisco,CA,94101,USA,2024-04-14,2024-07-13,active
+17,Ryan,Clark,ryan.clark@email.com,+1-555-0117,1988-01-12,680 Beech Ln,Indianapolis,IN,46201,USA,2024-05-09,2024-07-08,active
+18,Michelle,Lewis,michelle.lewis@email.com,+1-555-0118,1992-12-28,791 Sycamore St,Seattle,WA,98101,USA,2024-06-03,2024-07-10,active
+19,Kevin,Robinson,kevin.robinson@email.com,+1-555-0119,1985-05-17,802 Magnolia Ave,Denver,CO,80201,USA,2024-06-20,2024-07-06,active
+20,Nicole,Walker,nicole.walker@email.com,+1-555-0120,1990-08-04,913 Dogwood Rd,Boston,MA,02101,USA,2024-07-01,2024-07-12,active
