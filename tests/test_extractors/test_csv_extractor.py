@@ -34,9 +34,12 @@ class TestCSVExtractor:
     
     def teardown_method(self):
         """Clean up test fixtures."""
+        import shutil
         if os.path.exists(self.test_csv_path):
             os.remove(self.test_csv_path)
-        os.rmdir(self.temp_dir)
+        # Remove all files in temp_dir before removing directory
+        if os.path.exists(self.temp_dir):
+            shutil.rmtree(self.temp_dir)
     
     def test_extract_expected_use(self):
         """Test expected use case - successful CSV extraction."""
@@ -107,14 +110,16 @@ class TestCSVExtractor:
         # Arrange
         invalid_csv_path = os.path.join(self.temp_dir, "invalid.csv")
         with open(invalid_csv_path, 'w') as f:
-            f.write("invalid,csv,format\nwith,unmatched,quotes\"")
+            # Create content that will cause a pandas parsing error
+            f.write("col1,col2\n\"unclosed quote,value2\nrow3,value3")
         
         # Act & Assert
         with pytest.raises(CSVExtractorError, match="Error parsing CSV file"):
             self.extractor.extract(invalid_csv_path)
         
         # Cleanup
-        os.remove(invalid_csv_path)
+        if os.path.exists(invalid_csv_path):
+            os.remove(invalid_csv_path)
     
     def test_validate_source_valid_file(self):
         """Test source validation with valid file."""

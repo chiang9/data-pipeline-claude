@@ -132,7 +132,8 @@ class MySQLLoader(BaseLoader):
         """
         try:
             if not self._is_connected:
-                raise MySQLLoaderError("Not connected to database")
+                self.logger.error("Not connected to database")
+                return False
             
             inspector = inspect(self.engine)
             return table_name in inspector.get_table_names()

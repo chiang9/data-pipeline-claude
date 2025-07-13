@@ -23,7 +23,7 @@
 ### Example & Documentation
 - [x] Create sample CSV data - 2025-07-13
 - [x] Write simple pipeline example - 2025-07-13
-- [ ] Update README.md with setup instructions
+- [x] Update README.md with setup instructions - 2025-07-13
 
 ## Completed Tasks
 

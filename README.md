@@ -1,296 +1,368 @@
-# Context Engineering Template
+# Data Pipeline Module - POC Implementation
 
-A comprehensive template for getting started with Context Engineering - the discipline of engineering context for AI coding assistants so they have the information necessary to get the job done end to end.
-
-> **Context Engineering is 10x better than prompt engineering and 100x better than vibe coding.**
+A flexible ETL (Extract, Transform, Load) data pipeline module that demonstrates core functionality for ingesting CSV data, processing it through a transformation layer, and loading it into a MySQL database.
 
 ## 🚀 Quick Start
 
 ```bash
-# 1. Clone this template
-git clone https://github.com/coleam00/Context-Engineering-Intro.git
-cd Context-Engineering-Intro
+# 1. Clone and navigate to the project
+cd data-pipeline-claude
 
-# 2. Set up your project rules (optional - template provided)
-# Edit CLAUDE.md to add your project-specific guidelines
+# 2. Set up virtual environment
+python3 -m venv venv_linux
+source venv_linux/bin/activate
 
-# 3. Add examples (highly recommended)
-# Place relevant code examples in the examples/ folder
+# 3. Install dependencies
+pip install -r examples/requirements.txt
 
-# 4. Create your initial feature request
-# Edit INITIAL.md with your feature requirements
+# 4. Configure database connection
+cp examples/.env.example .env
+# Edit .env with your MySQL credentials
 
-# 5. Generate a comprehensive PRP (Product Requirements Prompt)
-# In Claude Code, run:
-/generate-prp INITIAL.md
-
-# 6. Execute the PRP to implement your feature
-# In Claude Code, run:
-/execute-prp PRPs/your-feature-name.md
+# 5. Run the example pipeline
+cd examples
+python simple_pipeline_example.py
 ```
 
-## 📚 Table of Contents
+## 📋 Project Overview
 
-- [What is Context Engineering?](#what-is-context-engineering)
-- [Template Structure](#template-structure)
-- [Step-by-Step Guide](#step-by-step-guide)
-- [Writing Effective INITIAL.md Files](#writing-effective-initialmd-files)
-- [The PRP Workflow](#the-prp-workflow)
-- [Using Examples Effectively](#using-examples-effectively)
-- [Best Practices](#best-practices)
+This POC demonstrates a modular data pipeline architecture that:
+- **Extracts** data from CSV files with robust error handling
+- **Transforms** data through a configurable layer (passthrough for POC)
+- **Loads** data into MySQL database with auto table creation
+- **Orchestrates** the complete ETL workflow with comprehensive logging
 
-## What is Context Engineering?
+## 🏗️ Architecture
 
-Context Engineering represents a paradigm shift from traditional prompt engineering:
-
-### Prompt Engineering vs Context Engineering
-
-**Prompt Engineering:**
-- Focuses on clever wording and specific phrasing
-- Limited to how you phrase a task
-- Like giving someone a sticky note
-
-**Context Engineering:**
-- A complete system for providing comprehensive context
-- Includes documentation, examples, rules, patterns, and validation
-- Like writing a full screenplay with all the details
-
-### Why Context Engineering Matters
-
-1. **Reduces AI Failures**: Most agent failures aren't model failures - they're context failures
-2. **Ensures Consistency**: AI follows your project patterns and conventions
-3. **Enables Complex Features**: AI can handle multi-step implementations with proper context
-4. **Self-Correcting**: Validation loops allow AI to fix its own mistakes
-
-## Template Structure
+### Core Components
 
 ```
-context-engineering-intro/
-├── .claude/
-│   ├── commands/
-│   │   ├── generate-prp.md    # Generates comprehensive PRPs
-│   │   └── execute-prp.md     # Executes PRPs to implement features
-│   └── settings.local.json    # Claude Code permissions
-├── PRPs/
-│   ├── templates/
-│   │   └── prp_base.md       # Base template for PRPs
-│   └── EXAMPLE_multi_agent_prp.md  # Example of a complete PRP
-├── examples/                  # Your code examples (critical!)
-├── CLAUDE.md                 # Global rules for AI assistant
-├── INITIAL.md               # Template for feature requests
-├── INITIAL_EXAMPLE.md       # Example feature request
-└── README.md                # This file
+data_pipeline/
+├── extractors/          # Data extraction components
+│   ├── base_extractor.py    # Abstract base class
+│   └── csv_extractor.py     # CSV file extractor
+├── transformers/        # Data transformation components
+│   ├── base_transformer.py # Abstract base class
+│   └── passthrough_transformer.py # POC pass-through
+├── loaders/            # Data loading components
+│   ├── base_loader.py      # Abstract base class
+│   └── mysql_loader.py     # MySQL database loader
+└── pipeline/           # Pipeline orchestration
+    ├── pipeline.py         # Main pipeline class
+    └── config.py          # Configuration management
 ```
 
-This template doesn't focus on RAG and tools with context engineering because I have a LOT more in store for that soon. ;)
+### Design Patterns
+- **Strategy Pattern**: Pluggable extractors, transformers, and loaders
+- **Configuration Management**: Environment variables and Pydantic validation
+- **Context Management**: Automatic connection handling
+- **Comprehensive Logging**: Detailed operation tracking
 
-## Step-by-Step Guide
+## 🛠️ Setup Instructions
 
-### 1. Set Up Global Rules (CLAUDE.md)
+### Prerequisites
+- Python 3.8+
+- MySQL Server 5.7+ or 8.0+
+- Git (for cloning)
 
-The `CLAUDE.md` file contains project-wide rules that the AI assistant will follow in every conversation. The template includes:
+### Installation Steps
 
-- **Project awareness**: Reading planning docs, checking tasks
-- **Code structure**: File size limits, module organization
-- **Testing requirements**: Unit test patterns, coverage expectations
-- **Style conventions**: Language preferences, formatting rules
-- **Documentation standards**: Docstring formats, commenting practices
+1. **Clone the Repository**
+   ```bash
+   git clone <repository-url>
+   cd data-pipeline-claude
+   ```
 
-**You can use the provided template as-is or customize it for your project.**
+2. **Create Virtual Environment**
+   ```bash
+   python3 -m venv venv_linux
+   source venv_linux/bin/activate  # On Windows: venv_linux\Scripts\activate
+   ```
 
-### 2. Create Your Initial Feature Request
+3. **Install Dependencies**
+   ```bash
+   pip install -r examples/requirements.txt
+   ```
 
-Edit `INITIAL.md` to describe what you want to build:
+4. **Set Up MySQL Database**
+   ```sql
+   -- Create database
+   CREATE DATABASE data_pipeline;
+   
+   -- Create user (optional)
+   CREATE USER 'pipeline_user'@'localhost' IDENTIFIED BY 'secure_password';
+   GRANT ALL PRIVILEGES ON data_pipeline.* TO 'pipeline_user'@'localhost';
+   FLUSH PRIVILEGES;
+   ```
 
-```markdown
-## FEATURE:
-[Describe what you want to build - be specific about functionality and requirements]
+5. **Configure Environment Variables**
+   ```bash
+   cp examples/.env.example .env
+   ```
+   
+   Edit `.env` with your MySQL credentials:
+   ```env
+   DB_HOST=localhost
+   DB_PORT=3306
+   DB_USER=pipeline_user
+   DB_PASSWORD=secure_password
+   DB_NAME=data_pipeline
+   ```
 
-## EXAMPLES:
-[List any example files in the examples/ folder and explain how they should be used]
+### Verification
 
-## DOCUMENTATION:
-[Include links to relevant documentation, APIs, or MCP server resources]
-
-## OTHER CONSIDERATIONS:
-[Mention any gotchas, specific requirements, or things AI assistants commonly miss]
-```
-
-**See `INITIAL_EXAMPLE.md` for a complete example.**
-
-### 3. Generate the PRP
-
-PRPs (Product Requirements Prompts) are comprehensive implementation blueprints that include:
-
-- Complete context and documentation
-- Implementation steps with validation
-- Error handling patterns
-- Test requirements
-
-They are similar to PRDs (Product Requirements Documents) but are crafted more specifically to instruct an AI coding assistant.
-
-Run in Claude Code:
+Run the example pipeline to verify setup:
 ```bash
-/generate-prp INITIAL.md
+cd examples
+python simple_pipeline_example.py
 ```
 
-**Note:** The slash commands are custom commands defined in `.claude/commands/`. You can view their implementation:
-- `.claude/commands/generate-prp.md` - See how it researches and creates PRPs
-- `.claude/commands/execute-prp.md` - See how it implements features from PRPs
+Expected output:
+```
+2025-07-13 10:30:15,123 - INFO - Starting pipeline execution
+2025-07-13 10:30:15,124 - INFO - Extracting data from: sample_data.csv
+2025-07-13 10:30:15,125 - INFO - Successfully extracted 5 rows
+2025-07-13 10:30:15,126 - INFO - Transforming 5 rows (passthrough)
+2025-07-13 10:30:15,127 - INFO - Connecting to MySQL database
+2025-07-13 10:30:15,135 - INFO - Loading 5 rows into table: users
+✅ Pipeline execution completed successfully!
+```
 
-The `$ARGUMENTS` variable in these commands receives whatever you pass after the command name (e.g., `INITIAL.md` or `PRPs/your-feature.md`).
+## 📖 Usage Examples
 
-This command will:
-1. Read your feature request
-2. Research the codebase for patterns
-3. Search for relevant documentation
-4. Create a comprehensive PRP in `PRPs/your-feature-name.md`
+### Basic Usage
 
-### 4. Execute the PRP
+```python
+from data_pipeline import DataPipeline
 
-Once generated, execute the PRP to implement your feature:
+# Initialize pipeline with configuration
+pipeline = DataPipeline()
 
+# Run ETL process
+results = pipeline.run(
+    source="data/input.csv",
+    destination="users_table"
+)
+
+print(f"Processed {results['steps']['extract']['rows']} rows")
+```
+
+### Custom Configuration
+
+```python
+from data_pipeline.pipeline.config import Config
+
+# Configure via dictionary
+config_dict = {
+    'name': 'my_pipeline',
+    'extractor': {
+        'type': 'csv',
+        'config': {'encoding': 'utf-8', 'delimiter': ';'}
+    },
+    'transformer': {
+        'type': 'passthrough',
+        'config': {'log_details': True}
+    },
+    'loader': {
+        'type': 'mysql',
+        'config': {'if_exists': 'replace'}
+    },
+    'database': {
+        'host': 'localhost',
+        'port': 3306,
+        'user': 'user',
+        'password': 'pass',
+        'database': 'db'
+    }
+}
+
+config = Config(config_dict)
+pipeline = DataPipeline(config)
+```
+
+### Using Individual Components
+
+```python
+from data_pipeline.extractors import CSVExtractor
+from data_pipeline.transformers import PassthroughTransformer
+from data_pipeline.loaders import MySQLLoader
+
+# Extract
+extractor = CSVExtractor({'encoding': 'utf-8'})
+data = extractor.extract('input.csv')
+
+# Transform
+transformer = PassthroughTransformer()
+transformed_data = transformer.transform(data)
+
+# Load
+loader_config = {
+    'host': 'localhost',
+    'port': 3306,
+    'user': 'user',
+    'password': 'pass',
+    'database': 'db'
+}
+loader = MySQLLoader(loader_config)
+
+with loader:
+    loader.load(transformed_data, 'output_table')
+```
+
+## 🧪 Testing
+
+### Run Unit Tests
 ```bash
-/execute-prp PRPs/your-feature-name.md
+# Activate virtual environment
+source venv_linux/bin/activate
+
+# Run all tests
+python -m pytest tests/ -v
+
+# Run specific test module
+python -m pytest tests/test_extractors/test_csv_extractor.py -v
+
+# Run with coverage
+python -m pytest tests/ --cov=data_pipeline --cov-report=html
 ```
 
-The AI coding assistant will:
-1. Read all context from the PRP
-2. Create a detailed implementation plan
-3. Execute each step with validation
-4. Run tests and fix any issues
-5. Ensure all success criteria are met
+### Test Coverage
+- **70 unit tests** covering all components
+- Tests for expected use cases, edge cases, and failure scenarios
+- Mock-based testing for database interactions
+- Pytest fixtures for consistent test data
 
-## Writing Effective INITIAL.md Files
-
-### Key Sections Explained
-
-**FEATURE**: Be specific and comprehensive
-- ❌ "Build a web scraper"
-- ✅ "Build an async web scraper using BeautifulSoup that extracts product data from e-commerce sites, handles rate limiting, and stores results in PostgreSQL"
-
-**EXAMPLES**: Leverage the examples/ folder
-- Place relevant code patterns in `examples/`
-- Reference specific files and patterns to follow
-- Explain what aspects should be mimicked
-
-**DOCUMENTATION**: Include all relevant resources
-- API documentation URLs
-- Library guides
-- MCP server documentation
-- Database schemas
-
-**OTHER CONSIDERATIONS**: Capture important details
-- Authentication requirements
-- Rate limits or quotas
-- Common pitfalls
-- Performance requirements
-
-## The PRP Workflow
-
-### How /generate-prp Works
-
-The command follows this process:
-
-1. **Research Phase**
-   - Analyzes your codebase for patterns
-   - Searches for similar implementations
-   - Identifies conventions to follow
-
-2. **Documentation Gathering**
-   - Fetches relevant API docs
-   - Includes library documentation
-   - Adds gotchas and quirks
-
-3. **Blueprint Creation**
-   - Creates step-by-step implementation plan
-   - Includes validation gates
-   - Adds test requirements
-
-4. **Quality Check**
-   - Scores confidence level (1-10)
-   - Ensures all context is included
-
-### How /execute-prp Works
-
-1. **Load Context**: Reads the entire PRP
-2. **Plan**: Creates detailed task list using TodoWrite
-3. **Execute**: Implements each component
-4. **Validate**: Runs tests and linting
-5. **Iterate**: Fixes any issues found
-6. **Complete**: Ensures all requirements met
-
-See `PRPs/EXAMPLE_multi_agent_prp.md` for a complete example of what gets generated.
-
-## Using Examples Effectively
-
-The `examples/` folder is **critical** for success. AI coding assistants perform much better when they can see patterns to follow.
-
-### What to Include in Examples
-
-1. **Code Structure Patterns**
-   - How you organize modules
-   - Import conventions
-   - Class/function patterns
-
-2. **Testing Patterns**
-   - Test file structure
-   - Mocking approaches
-   - Assertion styles
-
-3. **Integration Patterns**
-   - API client implementations
-   - Database connections
-   - Authentication flows
-
-4. **CLI Patterns**
-   - Argument parsing
-   - Output formatting
-   - Error handling
-
-### Example Structure
+## 📁 Project Structure
 
 ```
-examples/
-├── README.md           # Explains what each example demonstrates
-├── cli.py             # CLI implementation pattern
-├── agent/             # Agent architecture patterns
-│   ├── agent.py      # Agent creation pattern
-│   ├── tools.py      # Tool implementation pattern
-│   └── providers.py  # Multi-provider pattern
-└── tests/            # Testing patterns
-    ├── test_agent.py # Unit test patterns
-    └── conftest.py   # Pytest configuration
+data-pipeline-claude/
+├── data_pipeline/              # Main package
+│   ├── extractors/            # Data extraction modules
+│   ├── transformers/          # Data transformation modules
+│   ├── loaders/              # Data loading modules
+│   └── pipeline/             # Pipeline orchestration
+├── examples/                  # Usage examples
+│   ├── simple_pipeline_example.py
+│   ├── sample_data.csv
+│   ├── requirements.txt
+│   └── README.md
+├── tests/                    # Unit test suite
+│   ├── test_extractors/
+│   ├── test_transformers/
+│   ├── test_loaders/
+│   ├── test_pipeline/
+│   └── conftest.py
+├── PLANNING.md              # Project architecture
+├── TASK.md                 # Task tracking
+├── INITIAL.md             # Project requirements
+├── CLAUDE.md              # Development guidelines
+└── README.md              # This file
 ```
 
-## Best Practices
+## 🔧 Configuration Options
 
-### 1. Be Explicit in INITIAL.md
-- Don't assume the AI knows your preferences
-- Include specific requirements and constraints
-- Reference examples liberally
+### Environment Variables
 
-### 2. Provide Comprehensive Examples
-- More examples = better implementations
-- Show both what to do AND what not to do
-- Include error handling patterns
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DB_HOST` | MySQL host | `localhost` |
+| `DB_PORT` | MySQL port | `3306` |
+| `DB_USER` | MySQL username | - |
+| `DB_PASSWORD` | MySQL password | - |
+| `DB_NAME` | Database name | - |
+| `PIPELINE_NAME` | Pipeline identifier | `data_pipeline` |
+| `EXTRACTOR_TYPE` | Extractor type | `csv` |
+| `TRANSFORMER_TYPE` | Transformer type | `passthrough` |
+| `LOADER_TYPE` | Loader type | `mysql` |
+| `CSV_ENCODING` | CSV file encoding | `utf-8` |
+| `CSV_DELIMITER` | CSV delimiter | `,` |
+| `CSV_SKIP_ROWS` | Rows to skip | `0` |
+| `CSV_MAX_ROWS` | Max rows to read | `None` |
 
-### 3. Use Validation Gates
-- PRPs include test commands that must pass
-- AI will iterate until all validations succeed
-- This ensures working code on first try
+### Loader Options
 
-### 4. Leverage Documentation
-- Include official API docs
-- Add MCP server resources
-- Reference specific documentation sections
+| Option | Description | Values |
+|--------|-------------|---------|
+| `if_exists` | Table exists behavior | `fail`, `replace`, `append` |
+| `charset` | Database charset | `utf8mb4` |
 
-### 5. Customize CLAUDE.md
-- Add your conventions
-- Include project-specific rules
-- Define coding standards
+## 🚧 Current Limitations (POC Scope)
 
-## Resources
+- **Data Sources**: CSV files only
+- **Data Destinations**: MySQL only
+- **Transformations**: Pass-through only
+- **Performance**: Optimized for files up to 10,000 rows
+- **Schema**: Basic type inference (VARCHAR default)
 
-- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
-- [Context Engineering Best Practices](https://www.philschmid.de/context-engineering)
+## 🎯 Future Enhancements
+
+### Additional Data Sources
+- JSON, XML, Parquet files
+- API endpoints and web services
+- Cloud storage (S3, GCS)
+- Message queues (Kafka, RabbitMQ)
+
+### Additional Data Destinations
+- PostgreSQL, SQL Server
+- NoSQL databases (MongoDB, Cassandra)
+- Data warehouses (Snowflake, BigQuery)
+- Data lakes and file systems
+
+### Advanced Transformations
+- Data cleaning and validation
+- Type conversion and normalization
+- Data enrichment and joining
+- Aggregation and summarization
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Follow the development guidelines in `CLAUDE.md`
+4. Write unit tests for new functionality
+5. Ensure all tests pass (`pytest tests/`)
+6. Commit changes (`git commit -m 'Add amazing feature'`)
+7. Push to branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+### Common Issues
+
+**Database Connection Errors**
+- Verify MySQL server is running
+- Check credentials in `.env` file
+- Ensure database exists and user has permissions
+
+**CSV Import Errors**
+- Verify file exists and is readable
+- Check file encoding (default: UTF-8)
+- Ensure CSV format is valid
+
+**Module Import Errors**
+- Activate virtual environment: `source venv_linux/bin/activate`
+- Install dependencies: `pip install -r examples/requirements.txt`
+- Verify Python path includes project directory
+
+### Getting Help
+
+1. Check the [examples/](examples/) directory for usage patterns
+2. Review test files in [tests/](tests/) for API examples
+3. Consult the [PLANNING.md](PLANNING.md) for architecture details
+4. Open an issue for bug reports or feature requests
+
+## 📊 Project Status
+
+- ✅ **Core ETL Pipeline**: Fully implemented
+- ✅ **CSV Extraction**: Production-ready with error handling
+- ✅ **MySQL Loading**: Connection pooling and table management
+- ✅ **Configuration Management**: Environment and file-based config
+- ✅ **Unit Testing**: Comprehensive test suite (70 tests)
+- ✅ **Documentation**: Complete API documentation
+- 🔄 **Performance Optimization**: Future enhancement
+- 🔄 **Additional Data Sources**: Future enhancement
+- 🔄 **Advanced Transformations**: Future enhancement

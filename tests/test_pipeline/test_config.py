@@ -160,23 +160,18 @@ class TestConfig:
             assert db_config['host'] == 'localhost'
             assert db_config['port'] == 3306
     
-    @patch.dict(os.environ, clear=True)
     def test_load_from_env_missing_db_vars(self):
         """Test loading from environment with missing database variables."""
-        # Arrange
-        partial_env = {
-            'PIPELINE_NAME': 'test_pipeline',
-            'EXTRACTOR_TYPE': 'csv',
-            'TRANSFORMER_TYPE': 'passthrough',
-            'LOADER_TYPE': 'mysql'
-        }
+        # Arrange - explicitly clear DB environment variables
+        db_vars_to_clear = ['DB_HOST', 'DB_PORT', 'DB_USER', 'DB_PASSWORD', 'DB_NAME']
         
-        with patch.dict(os.environ, partial_env):
-            # Act
-            config = Config()
-            
-            # Assert
-            assert config.get_database_config() is None
+        with patch.dict(os.environ, {var: '' for var in db_vars_to_clear}, clear=False):
+            with patch('data_pipeline.pipeline.config.load_dotenv'):  # Prevent loading .env file
+                # Act
+                config = Config()
+                
+                # Assert
+                assert config.get_database_config() is None
     
     def test_load_from_env_file_success(self):
         """Test loading configuration from .env file."""

@@ -10,7 +10,7 @@ from typing import Any, Dict, Optional, Union
 from pathlib import Path
 import logging
 from dotenv import load_dotenv
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 
 logger = logging.getLogger(__name__)
@@ -26,19 +26,22 @@ class DatabaseConfig(BaseModel):
     database: str = Field(..., description="Database name")
     charset: str = Field(default="utf8mb4", description="Character set")
     
-    @validator('host')
+    @field_validator('host')
+    @classmethod
     def host_must_not_be_empty(cls, v):
         if not v.strip():
             raise ValueError('Host cannot be empty')
         return v.strip()
     
-    @validator('user')
+    @field_validator('user')
+    @classmethod
     def user_must_not_be_empty(cls, v):
         if not v.strip():
             raise ValueError('User cannot be empty')
         return v.strip()
     
-    @validator('database')
+    @field_validator('database')
+    @classmethod
     def database_must_not_be_empty(cls, v):
         if not v.strip():
             raise ValueError('Database name cannot be empty')
@@ -51,7 +54,8 @@ class ExtractorConfig(BaseModel):
     type: str = Field(..., description="Extractor type (e.g., 'csv')")
     config: Dict[str, Any] = Field(default_factory=dict, description="Extractor-specific config")
     
-    @validator('type')
+    @field_validator('type')
+    @classmethod
     def type_must_be_supported(cls, v):
         supported_types = ['csv']  # Add more as needed
         if v not in supported_types:
@@ -65,7 +69,8 @@ class TransformerConfig(BaseModel):
     type: str = Field(..., description="Transformer type (e.g., 'passthrough')")
     config: Dict[str, Any] = Field(default_factory=dict, description="Transformer-specific config")
     
-    @validator('type')
+    @field_validator('type')
+    @classmethod
     def type_must_be_supported(cls, v):
         supported_types = ['passthrough']  # Add more as needed
         if v not in supported_types:
@@ -79,7 +84,8 @@ class LoaderConfig(BaseModel):
     type: str = Field(..., description="Loader type (e.g., 'mysql')")
     config: Dict[str, Any] = Field(default_factory=dict, description="Loader-specific config")
     
-    @validator('type')
+    @field_validator('type')
+    @classmethod
     def type_must_be_supported(cls, v):
         supported_types = ['mysql']  # Add more as needed
         if v not in supported_types:
@@ -97,7 +103,8 @@ class PipelineConfig(BaseModel):
     loader: LoaderConfig = Field(..., description="Loader configuration")
     database: Optional[DatabaseConfig] = Field(None, description="Database configuration")
     
-    @validator('name')
+    @field_validator('name')
+    @classmethod
     def name_must_not_be_empty(cls, v):
         if not v.strip():
             raise ValueError('Pipeline name cannot be empty')
@@ -179,7 +186,7 @@ class Config:
         }
         
         if db_config:
-            config_dict['database'] = db_config.dict()
+            config_dict['database'] = db_config.model_dump()
         
         self._config = PipelineConfig(**config_dict)
     
@@ -265,7 +272,7 @@ class Config:
             Optional[Dict[str, Any]]: Database configuration or None if not configured
         """
         if self._config and self._config.database:
-            return self._config.database.dict()
+            return self._config.database.model_dump()
         return None
     
     def get_extractor_config(self) -> Dict[str, Any]:
@@ -333,7 +340,7 @@ class Config:
         """
         if self._config is None:
             return {}
-        return self._config.dict()
+        return self._config.model_dump()
     
     def __str__(self) -> str:
         """String representation of the configuration."""
